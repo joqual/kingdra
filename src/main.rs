@@ -42,7 +42,7 @@ struct Piece {
 
 fn main() {
     println!("Initialize Board");
-    let mut board: Board = INITIAL_BOARD;
+    let board: Board = INITIAL_BOARD;
     for i in board.squares {
         println!("{:?}", i);
     }
