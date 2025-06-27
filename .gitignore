@@ -28,7 +28,6 @@ Session.vim
 .dir-locals.el
 
 ## Tool
-.valgrindrc
 .cargo
 # Included because it is part of the test case
 !/tests/run-make/thumb-none-qemu/example/.cargo
@@ -56,49 +55,6 @@ no_llvm_build
 /src/bootstrap/target
 /src/ci/citool/target
 /src/tools/x/target
-# Created by `x vendor`
-/vendor
-# Created by default with `src/ci/docker/run.sh`
-/obj/
-# Created by nix dev shell / .envrc
-src/tools/nix-dev-shell/flake.lock
-
-## ICE reports
-rustc-ice-*.txt
-
-## Temporary files
-*~
-\#*
-\#*\#
-.#*
-
-## Tags
-tags
-tags.*
-TAGS
-TAGS.*
-
-## Python
-__pycache__/
-*.py[cod]
-*$py.class
-
-## Node
-node_modules
-package-lock.json
-package.json
-/src/doc/rustc-dev-guide/mermaid.min.js
-
-## Rustdoc GUI tests
-tests/rustdoc-gui/src/**.lock
-
-## direnv
-/.envrc
-/.direnv/
-
-## nix
-/flake.nix
-flake.lock
-/default.nix
+target/
 
 # Before adding new lines, see the comment at the top.
