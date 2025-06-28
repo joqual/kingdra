@@ -68,18 +68,30 @@ pub struct Board {
 
 impl Board {
     // Helper to create a board with padding (borders) and initial chess setup
-    pub const fn new() -> Self {
+    // It's really ugly
+    pub fn new() -> Self {
         let mut squares = [Square::Border; BOARD_AREA];
 
         // Place all inner squares as Empty first
-        let mut rank = BOARD_START;
-        while rank < BOARD_END {
-            let mut file = BOARD_START;
-            while file < BOARD_END {
+        for rank in BOARD_START..BOARD_END {
+            for file in BOARD_START..BOARD_END {
                 squares[rank * BOARD_SIZE + file] = Square::Empty;
-                file += 1;
             }
-            rank += 1;
+        }
+
+        // Place pawns
+        for rank in 0..NUM_RANKS {
+            //Place white pawns
+            squares[(BOARD_START + 1) * BOARD_SIZE + BOARD_START + rank] = Square::Full(Piece {
+                role: Role::Pawn,
+                color: Color::White,
+            });
+
+            // Place black pawns
+            squares[(BOARD_END - 2) * BOARD_SIZE + BOARD_START + rank] = Square::Full(Piece {
+                role: Role::Pawn,
+                color: Color::Black,
+            });
         }
 
         // Place white pieces
@@ -115,14 +127,6 @@ impl Board {
             role: Role::Rook,
             color: Color::White,
         });
-        let mut file = 0;
-        while file < NUM_RANKS {
-            squares[(BOARD_START + 1) * BOARD_SIZE + BOARD_START + file] = Square::Full(Piece {
-                role: Role::Pawn,
-                color: Color::White,
-            });
-            file += 1;
-        }
 
         // Place black pieces
         squares[(BOARD_END - 1) * BOARD_SIZE + BOARD_START + 0] = Square::Full(Piece {
@@ -157,14 +161,6 @@ impl Board {
             role: Role::Rook,
             color: Color::Black,
         });
-        let mut file = 0;
-        while file < NUM_RANKS {
-            squares[(BOARD_END - 2) * BOARD_SIZE + BOARD_START + file] = Square::Full(Piece {
-                role: Role::Pawn,
-                color: Color::Black,
-            });
-            file += 1;
-        }
 
         Board { squares }
     }
