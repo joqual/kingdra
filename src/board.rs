@@ -2,10 +2,7 @@ pub const BOARD_SIZE: usize = 12;
 pub const BOARD_START: usize = 2;
 pub const BOARD_END: usize = 10;
 pub const BOARD_AREA: usize = BOARD_SIZE * BOARD_SIZE;
-
-pub struct Board {
-    pub squares: [Square; BOARD_AREA],
-}
+pub const NUM_RANKS: usize = BOARD_END - BOARD_START;
 
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub enum Square {
@@ -39,6 +36,34 @@ enum Color {
 pub struct Piece {
     role: Role,
     color: Color,
+}
+
+impl Piece {
+    pub fn as_char(self) -> &'static str {
+        match self.role {
+            Role::Pawn => "p",
+            Role::Rook => "R",
+            Role::Knight => "N",
+            Role::Bishop => "B",
+            Role::Queen => "Q",
+            Role::King => "K",
+        }
+    }
+
+    pub fn as_fancy(self) -> &'static str {
+        match self.role {
+            Role::Pawn => "♙",
+            Role::Rook => "♖",
+            Role::Knight => "♘",
+            Role::Bishop => "♗",
+            Role::Queen => "♕",
+            Role::King => "♔",
+        }
+    }
+}
+
+pub struct Board {
+    pub squares: [Square; BOARD_AREA],
 }
 
 impl Board {
@@ -91,7 +116,7 @@ impl Board {
             color: Color::White,
         });
         let mut file = 0;
-        while file < 8 {
+        while file < NUM_RANKS {
             squares[(BOARD_START + 1) * BOARD_SIZE + BOARD_START + file] = Square::Full(Piece {
                 role: Role::Pawn,
                 color: Color::White,
@@ -133,7 +158,7 @@ impl Board {
             color: Color::Black,
         });
         let mut file = 0;
-        while file < 8 {
+        while file < NUM_RANKS {
             squares[(BOARD_END - 2) * BOARD_SIZE + BOARD_START + file] = Square::Full(Piece {
                 role: Role::Pawn,
                 color: Color::Black,
@@ -142,5 +167,19 @@ impl Board {
         }
 
         Board { squares }
+    }
+
+    pub fn print_state(self) {
+        for (i, item) in self.squares.iter().enumerate() {
+            if i > 0 && i % BOARD_SIZE == 0 {
+                println!();
+            }
+
+            match item {
+                Square::Border => (),
+                Square::Empty => print!(" ■ "),
+                Square::Full(p) => print!(" {:} ", p.as_fancy()),
+            }
+        }
     }
 }
