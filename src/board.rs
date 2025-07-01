@@ -4,7 +4,7 @@ pub const BOARD_END: usize = 10;
 pub const BOARD_AREA: usize = BOARD_SIZE * BOARD_SIZE;
 pub const NUM_RANKS: usize = BOARD_END - BOARD_START;
 
-#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub enum Square {
     // Square is empty
     Empty,
@@ -16,7 +16,7 @@ pub enum Square {
     Border,
 }
 
-#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+#[derive(Copy, Clone, Debug)]
 enum Role {
     King,
     Queen,
@@ -26,20 +26,20 @@ enum Role {
     Pawn,
 }
 
-#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+#[derive(Copy, Clone, Debug)]
 enum Color {
     White,
     Black,
 }
 
-#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+#[derive(Copy, Clone, Debug)]
 pub struct Piece {
     role: Role,
     color: Color,
 }
 
 impl Piece {
-    pub fn as_char(self) -> &'static str {
+    pub fn as_char(&self) -> &'static str {
         match self.role {
             Role::Pawn => "p",
             Role::Rook => "R",
@@ -50,7 +50,7 @@ impl Piece {
         }
     }
 
-    pub fn as_fancy(self) -> &'static str {
+    pub fn as_fancy(&self) -> &'static str {
         match self.role {
             Role::Pawn => "♙",
             Role::Rook => "♖",
@@ -60,6 +60,11 @@ impl Piece {
             Role::King => "♔",
         }
     }
+
+    pub fn valid_moves(self, board_state: &Board) -> Vec<&str>{
+        return vec!["TODO!"]
+    }
+
 }
 
 pub struct Board {
