@@ -61,10 +61,9 @@ impl Piece {
         }
     }
 
-    pub fn valid_moves(self, board_state: &Board) -> Vec<&str>{
-        return vec!["TODO!"]
+    pub fn valid_moves(self, board_state: &Board) -> Vec<&str> {
+        return vec!["TODO!"];
     }
-
 }
 
 pub struct Board {
@@ -99,24 +98,72 @@ impl Board {
         }
 
         // Place white pieces
-        squares[BOARD_START][BOARD_START + 0] = Square::Full(Piece { role: Role::Rook, color: Color::White });
-        squares[BOARD_START][BOARD_START + 1] = Square::Full(Piece { role: Role::Knight, color: Color::White });
-        squares[BOARD_START][BOARD_START + 2] = Square::Full(Piece { role: Role::Bishop, color: Color::White });
-        squares[BOARD_START][BOARD_START + 3] = Square::Full(Piece { role: Role::Queen, color: Color::White });
-        squares[BOARD_START][BOARD_START + 4] = Square::Full(Piece { role: Role::King, color: Color::White });
-        squares[BOARD_START][BOARD_START + 5] = Square::Full(Piece { role: Role::Bishop, color: Color::White });
-        squares[BOARD_START][BOARD_START + 6] = Square::Full(Piece { role: Role::Knight, color: Color::White });
-        squares[BOARD_START][BOARD_START + 7] = Square::Full(Piece { role: Role::Rook, color: Color::White });
+        squares[BOARD_START][BOARD_START + 0] = Square::Full(Piece {
+            role: Role::Rook,
+            color: Color::White,
+        });
+        squares[BOARD_START][BOARD_START + 1] = Square::Full(Piece {
+            role: Role::Knight,
+            color: Color::White,
+        });
+        squares[BOARD_START][BOARD_START + 2] = Square::Full(Piece {
+            role: Role::Bishop,
+            color: Color::White,
+        });
+        squares[BOARD_START][BOARD_START + 3] = Square::Full(Piece {
+            role: Role::Queen,
+            color: Color::White,
+        });
+        squares[BOARD_START][BOARD_START + 4] = Square::Full(Piece {
+            role: Role::King,
+            color: Color::White,
+        });
+        squares[BOARD_START][BOARD_START + 5] = Square::Full(Piece {
+            role: Role::Bishop,
+            color: Color::White,
+        });
+        squares[BOARD_START][BOARD_START + 6] = Square::Full(Piece {
+            role: Role::Knight,
+            color: Color::White,
+        });
+        squares[BOARD_START][BOARD_START + 7] = Square::Full(Piece {
+            role: Role::Rook,
+            color: Color::White,
+        });
 
         // Place black pieces
-        squares[BOARD_END - 1][BOARD_START + 0] = Square::Full(Piece { role: Role::Rook, color: Color::Black });
-        squares[BOARD_END - 1][BOARD_START + 1] = Square::Full(Piece { role: Role::Knight, color: Color::Black });
-        squares[BOARD_END - 1][BOARD_START + 2] = Square::Full(Piece { role: Role::Bishop, color: Color::Black });
-        squares[BOARD_END - 1][BOARD_START + 3] = Square::Full(Piece { role: Role::Queen, color: Color::Black });
-        squares[BOARD_END - 1][BOARD_START + 4] = Square::Full(Piece { role: Role::King, color: Color::Black });
-        squares[BOARD_END - 1][BOARD_START + 5] = Square::Full(Piece { role: Role::Bishop, color: Color::Black });
-        squares[BOARD_END - 1][BOARD_START + 6] = Square::Full(Piece { role: Role::Knight, color: Color::Black });
-        squares[BOARD_END - 1][BOARD_START + 7] = Square::Full(Piece { role: Role::Rook, color: Color::Black });
+        squares[BOARD_END - 1][BOARD_START + 0] = Square::Full(Piece {
+            role: Role::Rook,
+            color: Color::Black,
+        });
+        squares[BOARD_END - 1][BOARD_START + 1] = Square::Full(Piece {
+            role: Role::Knight,
+            color: Color::Black,
+        });
+        squares[BOARD_END - 1][BOARD_START + 2] = Square::Full(Piece {
+            role: Role::Bishop,
+            color: Color::Black,
+        });
+        squares[BOARD_END - 1][BOARD_START + 3] = Square::Full(Piece {
+            role: Role::Queen,
+            color: Color::Black,
+        });
+        squares[BOARD_END - 1][BOARD_START + 4] = Square::Full(Piece {
+            role: Role::King,
+            color: Color::Black,
+        });
+        squares[BOARD_END - 1][BOARD_START + 5] = Square::Full(Piece {
+            role: Role::Bishop,
+            color: Color::Black,
+        });
+        squares[BOARD_END - 1][BOARD_START + 6] = Square::Full(Piece {
+            role: Role::Knight,
+            color: Color::Black,
+        });
+        squares[BOARD_END - 1][BOARD_START + 7] = Square::Full(Piece {
+            role: Role::Rook,
+            color: Color::Black,
+        });
 
         Board { squares }
     }
