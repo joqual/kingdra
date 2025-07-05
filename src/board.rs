@@ -68,119 +68,69 @@ impl Piece {
 }
 
 pub struct Board {
-    pub squares: [Square; BOARD_AREA],
+    pub squares: [[Square; BOARD_SIZE]; BOARD_SIZE],
 }
 
 impl Board {
     // Helper to create a board with padding (borders) and initial chess setup
     // It's really ugly
     pub fn new() -> Self {
-        let mut squares = [Square::Border; BOARD_AREA];
+        let mut squares = [[Square::Border; BOARD_SIZE]; BOARD_SIZE];
 
         // Place all inner squares as Empty first
         for rank in BOARD_START..BOARD_END {
             for file in BOARD_START..BOARD_END {
-                squares[rank * BOARD_SIZE + file] = Square::Empty;
+                squares[rank][file] = Square::Empty;
             }
         }
 
         // Place pawns
-        for rank in 0..NUM_RANKS {
-            //Place white pawns
-            squares[(BOARD_START + 1) * BOARD_SIZE + BOARD_START + rank] = Square::Full(Piece {
+        for file in 0..NUM_RANKS {
+            // White pawns
+            squares[BOARD_START + 1][BOARD_START + file] = Square::Full(Piece {
                 role: Role::Pawn,
                 color: Color::White,
             });
-
-            // Place black pawns
-            squares[(BOARD_END - 2) * BOARD_SIZE + BOARD_START + rank] = Square::Full(Piece {
+            // Black pawns
+            squares[BOARD_END - 2][BOARD_START + file] = Square::Full(Piece {
                 role: Role::Pawn,
                 color: Color::Black,
             });
         }
 
         // Place white pieces
-        squares[BOARD_START * BOARD_SIZE + BOARD_START + 0] = Square::Full(Piece {
-            role: Role::Rook,
-            color: Color::White,
-        });
-        squares[BOARD_START * BOARD_SIZE + BOARD_START + 1] = Square::Full(Piece {
-            role: Role::Knight,
-            color: Color::White,
-        });
-        squares[BOARD_START * BOARD_SIZE + BOARD_START + 2] = Square::Full(Piece {
-            role: Role::Bishop,
-            color: Color::White,
-        });
-        squares[BOARD_START * BOARD_SIZE + BOARD_START + 3] = Square::Full(Piece {
-            role: Role::Queen,
-            color: Color::White,
-        });
-        squares[BOARD_START * BOARD_SIZE + BOARD_START + 4] = Square::Full(Piece {
-            role: Role::King,
-            color: Color::White,
-        });
-        squares[BOARD_START * BOARD_SIZE + BOARD_START + 5] = Square::Full(Piece {
-            role: Role::Bishop,
-            color: Color::White,
-        });
-        squares[BOARD_START * BOARD_SIZE + BOARD_START + 6] = Square::Full(Piece {
-            role: Role::Knight,
-            color: Color::White,
-        });
-        squares[BOARD_START * BOARD_SIZE + BOARD_START + 7] = Square::Full(Piece {
-            role: Role::Rook,
-            color: Color::White,
-        });
+        squares[BOARD_START][BOARD_START + 0] = Square::Full(Piece { role: Role::Rook, color: Color::White });
+        squares[BOARD_START][BOARD_START + 1] = Square::Full(Piece { role: Role::Knight, color: Color::White });
+        squares[BOARD_START][BOARD_START + 2] = Square::Full(Piece { role: Role::Bishop, color: Color::White });
+        squares[BOARD_START][BOARD_START + 3] = Square::Full(Piece { role: Role::Queen, color: Color::White });
+        squares[BOARD_START][BOARD_START + 4] = Square::Full(Piece { role: Role::King, color: Color::White });
+        squares[BOARD_START][BOARD_START + 5] = Square::Full(Piece { role: Role::Bishop, color: Color::White });
+        squares[BOARD_START][BOARD_START + 6] = Square::Full(Piece { role: Role::Knight, color: Color::White });
+        squares[BOARD_START][BOARD_START + 7] = Square::Full(Piece { role: Role::Rook, color: Color::White });
 
         // Place black pieces
-        squares[(BOARD_END - 1) * BOARD_SIZE + BOARD_START + 0] = Square::Full(Piece {
-            role: Role::Rook,
-            color: Color::Black,
-        });
-        squares[(BOARD_END - 1) * BOARD_SIZE + BOARD_START + 1] = Square::Full(Piece {
-            role: Role::Knight,
-            color: Color::Black,
-        });
-        squares[(BOARD_END - 1) * BOARD_SIZE + BOARD_START + 2] = Square::Full(Piece {
-            role: Role::Bishop,
-            color: Color::Black,
-        });
-        squares[(BOARD_END - 1) * BOARD_SIZE + BOARD_START + 3] = Square::Full(Piece {
-            role: Role::Queen,
-            color: Color::Black,
-        });
-        squares[(BOARD_END - 1) * BOARD_SIZE + BOARD_START + 4] = Square::Full(Piece {
-            role: Role::King,
-            color: Color::Black,
-        });
-        squares[(BOARD_END - 1) * BOARD_SIZE + BOARD_START + 5] = Square::Full(Piece {
-            role: Role::Bishop,
-            color: Color::Black,
-        });
-        squares[(BOARD_END - 1) * BOARD_SIZE + BOARD_START + 6] = Square::Full(Piece {
-            role: Role::Knight,
-            color: Color::Black,
-        });
-        squares[(BOARD_END - 1) * BOARD_SIZE + BOARD_START + 7] = Square::Full(Piece {
-            role: Role::Rook,
-            color: Color::Black,
-        });
+        squares[BOARD_END - 1][BOARD_START + 0] = Square::Full(Piece { role: Role::Rook, color: Color::Black });
+        squares[BOARD_END - 1][BOARD_START + 1] = Square::Full(Piece { role: Role::Knight, color: Color::Black });
+        squares[BOARD_END - 1][BOARD_START + 2] = Square::Full(Piece { role: Role::Bishop, color: Color::Black });
+        squares[BOARD_END - 1][BOARD_START + 3] = Square::Full(Piece { role: Role::Queen, color: Color::Black });
+        squares[BOARD_END - 1][BOARD_START + 4] = Square::Full(Piece { role: Role::King, color: Color::Black });
+        squares[BOARD_END - 1][BOARD_START + 5] = Square::Full(Piece { role: Role::Bishop, color: Color::Black });
+        squares[BOARD_END - 1][BOARD_START + 6] = Square::Full(Piece { role: Role::Knight, color: Color::Black });
+        squares[BOARD_END - 1][BOARD_START + 7] = Square::Full(Piece { role: Role::Rook, color: Color::Black });
 
         Board { squares }
     }
 
     pub fn print_state(self) {
-        for (i, item) in self.squares.iter().enumerate() {
-            if i > 0 && i % BOARD_SIZE == 0 {
-                println!();
+        for row in self.squares.iter() {
+            for square in row.iter() {
+                match square {
+                    Square::Border => (),
+                    Square::Empty => print!(" ■ "),
+                    Square::Full(p) => print!(" {:} ", p.as_fancy()),
+                }
             }
-
-            match item {
-                Square::Border => (),
-                Square::Empty => print!(" ■ "),
-                Square::Full(p) => print!(" {:} ", p.as_fancy()),
-            }
+            println!();
         }
     }
 }
