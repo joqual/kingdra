@@ -27,7 +27,7 @@ enum Role {
 }
 
 #[derive(Copy, Clone, Debug)]
-enum Color {
+pub enum Color {
     White,
     Black,
 }
@@ -68,6 +68,8 @@ impl Piece {
 
 pub struct Board {
     pub squares: [[Square; BOARD_SIZE]; BOARD_SIZE],
+    pub current_turn: Color,
+    pub move_count: u32,
 }
 
 impl Board {
@@ -165,14 +167,18 @@ impl Board {
             color: Color::Black,
         });
 
-        Board { squares }
+        Board {
+            squares: squares,
+            current_turn: Color::White,
+            move_count: 0,
+        }
     }
 
     pub fn print_state(self) {
         for row in self.squares.iter() {
             for square in row.iter() {
                 match square {
-                    Square::Border => (),
+                    Square::Border => print!(" X "),
                     Square::Empty => print!(" ■ "),
                     Square::Full(p) => print!(" {:} ", p.as_fancy()),
                 }
